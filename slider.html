@@ -1,0 +1,153 @@
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+<style media="screen">
+html {
+  border-top: 5px solid #fff;
+  background: #58DDAF;
+  color: #2a2a2a;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans';
+}
+
+p {
+  margin: 0 auto;
+  width: 500px;
+}
+
+h1 {
+  color: #fff;
+  text-align: center;
+  font-weight: 300;
+}
+
+#slider {
+  position: relative;
+  overflow: hidden;
+  margin: 20px auto 0 auto;
+  border-radius: 4px;
+}
+
+#slider ul {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 200px;
+  list-style: none;
+}
+
+#slider ul li {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 500px;
+  height: 300px;
+  background: #ccc;
+  text-align: center;
+  line-height: 300px;
+}
+
+.control_prev,
+.control_next {
+  position: absolute;
+  top: 40%;
+  z-index: 999;
+  display: block;
+  padding: 4% 3%;
+  width: auto;
+  height: auto;
+  background: #2a2a2a;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.8;
+  cursor: pointer;
+  border: 0;
+}
+
+.control_prev:hover, .control_next:hover {
+  opacity: 1;
+  transition: all 0.2s ease;
+}
+
+.control_prev {
+  border-radius: 0 2px 2px 0;
+}
+
+.control_next {
+  right: 0;
+  border-radius: 2px 0 0 2px;
+}
+
+</style>
+<<body>
+
+
+<div id="slider">
+  <button class="control_next"><i class="fa fa-chevron-right"></i>
+</button>
+  <button class="control_prev"><i class="fa fa-chevron-left"></i></button>
+  <ul>
+    <li>SLIDE 1</li>
+    <li style="background: #aaa;">SLIDE 2</li>
+    <li>SLIDE 3</li>
+    <li style="background: #aaa;">SLIDE 4</li>
+  </ul>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function ($) {
+    setInterval(function () {
+        moveRight();
+    }, 6000);
+
+	var slideCount = $('#slider ul li').length;
+	var slideWidth = $('#slider ul li').width();
+	var slideHeight = $('#slider ul li').height();
+	var sliderUlWidth = slideCount * slideWidth;
+
+	$('#slider').css({ width: slideWidth, height: slideHeight });
+
+	$('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+
+    $('#slider ul li:last-child').prependTo('#slider ul');
+
+    function moveLeft() {
+        $('#slider ul').animate({
+            left: + slideWidth
+        }, 200, function () {
+            $('#slider ul li:last-child').prependTo('#slider ul');
+            $('#slider ul').css('left', '');
+        });
+    };
+
+    function moveRight() {
+        $('#slider ul').animate({
+            left: - slideWidth
+        }, 200, function () {
+            $('#slider ul li:first-child').appendTo('#slider ul');
+            $('#slider ul').css('left', '');
+        });
+    };
+
+    $('.control_prev').click(function () {
+        moveLeft();
+    });
+
+    $('.control_next').click(function () {
+        moveRight();
+    });
+
+});
+
+</script>
+
+</body>
+</html>
